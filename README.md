@@ -17,7 +17,7 @@ Bien définir la fonction coût est essentiel pour assurer la convergence des al
 
 Elle est définit pour minimiser la distance entre le début et la fin de la chaine et minimiser l'angle pour assurer une jonction cohérente :
 
-![Screenshot of the cost funtion](/pictures/Cost%20function.png)
+![Screenshot of the cost funtion](/pictures/cost_function.png)
 
 Les paramètres sont :
 - $dist$ : la distance entre le noeud $n-1$ et $0$.
