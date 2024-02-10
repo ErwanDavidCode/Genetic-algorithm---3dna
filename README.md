@@ -2,6 +2,29 @@
 
 ![CentraleSupelec Logo](https://www.centralesupelec.fr/sites/all/themes/cs_theme/medias/common/images/intro/logo_nouveau.jpg)
 
+## Introduction
+### Présentation
+Ce projet Python a pour objectif de circulariser un plasmide en optimisant les valeurs d'une table de calcul de trajectoire 3D du plasmide.
+
+_"En microbiologie et en biologie moléculaire, un plasmide est une molécule d'ADN distincte de l'ADN chromosomique."_
+
+Pour ce faire, sont utilisés et comparés 2 algoritmhes méta-heuristiques : 
+- Recuit simulé 
+- Algoritmhe génétique.
+
+### Fontion coût
+Bien définir la fonction coût est essentiel pour assurer la convergence des algortihmes méta-heuristiques. 
+
+Elle est définit pour minimiser la distance entre le début et la fin de la chaine et minimiser l'angle pour assurer une jonction cohérente :
+
+![Screenshot of the cost funtion](/pictures/Cost%20function.png)
+
+Les paramètres sont :
+- $dist$ : la distance entre le noeud $n-1$ et $0$.
+- $dot_1$ : le produit scalaire entre $V_{fin}$ et $V_{milieu}$ 
+- $dot_1$ : le produit scalaire entre $V_{milieu}$ et $V_{début}$ 
+
+
 ## Initialisation
 
 - Créer un environnement virtuel Python
