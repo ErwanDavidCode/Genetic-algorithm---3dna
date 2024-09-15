@@ -1,37 +1,37 @@
-# ST2 (Théorie des Jeux) - EI Algorithmique Génétique
+# ST2 (Game Theory) - EI Genetic Algorithms
 
 ![CentraleSupelec Logo](https://www.centralesupelec.fr/sites/all/themes/cs_theme/medias/common/images/intro/logo_nouveau.jpg)
 
 ## Introduction
-### Présentation
-Ce projet Python a pour objectif de circulariser un plasmide en optimisant les valeurs d'une table de calcul de trajectoire 3D du plasmide.
+### Presentation
+The aim of this Python project is to circularize a plasmid by optimizing the values of a table calculating the plasmid's 3D trajectory.
 
-_"En microbiologie et en biologie moléculaire, un plasmide est une molécule d'ADN distincte de l'ADN chromosomique."_
+_"In microbiology and molecular biology, a plasmid is a DNA molecule distinct from chromosomal DNA.
 
-Pour ce faire, sont utilisés et comparés 2 algoritmhes méta-heuristiques : 
-- Recuit simulé 
-- Algoritmhe génétique.
+For this purpose, 2 meta-heuristic algorithms are used and compared: 
+- Simulated annealing 
+- Genetic algorithm.
 
-### Fontion coût
-Bien définir la fonction coût est essentiel pour assurer la convergence des algortihmes méta-heuristiques. 
+### Cost function
+A well-defined cost function is essential to ensure the convergence of meta-heuristic algorithms. 
 
-Elle est définit pour minimiser la distance entre le début et la fin de la chaine et minimiser l'angle pour assurer une jonction cohérente :
+It is defined to minimize the distance between the beginning and the end of the chain and to minimize the angle to ensure coherent junction:
 
 ![Screenshot of the cost funtion](/pictures/cost_function.png)
 
-Les paramètres sont :
-- $dist$ : la distance entre le noeud $n-1$ et $0$.
-- $dot_1$ : le produit scalaire entre $V_{fin}$ et $V_{milieu}$ 
-- $dot_1$ : le produit scalaire entre $V_{milieu}$ et $V_{début}$ 
+The parameters are :
+- $dist$ : the distance between node $n-1$ and $0$.
+- $dot_1$: the scalar product between $V_{end}$ and $V_{middle}$. 
+- $dot_1$: the scalar product between $V_{middle}$ and $V_{begin}$. 
 
 
-## Initialisation
+## Initialization
 
-- Créer un environnement virtuel Python
+- Create a Python virtual environment
 ```sh
 python -m venv venv
 ```
-- Activer l'environnement
+- Activate environment
     - Windows
     ```powershell
     .\venv\Scripts\activate
@@ -41,27 +41,27 @@ python -m venv venv
     source ./venv/Scripts/activate
     ```
 
-- Installer les librairies Python
+-  Install Python libraries
 ```sh
 pip install -r requirements.txt
 ```
 
-## Recherche d'une solution
+## Finding a solution
 
-- Algorithme du recuit simulé
+- Simulated annealing algorithm
 ```sh
-python 3dna <répertoire du fichier .fasta> recuit
+python 3dna <directory of the file .fasta> recuit
 ```
-Exemple
+Example
 ```sh
 python 3dna ./data/plasmid_8k.fasta recuit
 ```
 
-- Algorithme génétique
+- Genetic algorithm
 ```sh
-python 3dna <répertoire du fichier .fasta> genetique <stratégie de sélection>
+python 3dna <directory of the file .fasta file> genetics <selection strategy>
 ```
-Liste des stratégies de sélection
+List of selection strategies
 ```
 elitisme (défaut)
 roulette
@@ -69,30 +69,30 @@ rang
 tournoi
 ```
 
-Exemple
+Example
 ```sh
 python 3dna ./data/plasmid_8k.fasta genetique tournoi
 ```
 
-## Valeur retournée
+## Returned value
 
-A la fin de l'exécution d'un algorithme, plusieurs valeurs sont imprimées :
-- La table des rotations 3D en format `json`
-- La différence entre les valeurs de *Twist* et *Wedge* et leur seuil maximal pour chaque paire de nucléotides (La valeur de *Direction* est constante)
-- La distance entre le centre du dinucléotide du début et celui de fin.
-- En notant
-    - $p_i$ la position du centre du ième dinucléotide
-    - $n$ le nombre de nucléotides dans la séquence
-    - $v_{fin} = p_{n - 1} - p_{n - 2}$
-    - $v_{milieu} = p_0 - p_{n - 1}$
-    - $v_{debut} = p_1 - p_0$
+At the end of an algorithm's execution, several values are printed:
+- The 3D rotation table in `json` format
+- The difference between the values of *Twist* and *Wedge* and their maximum threshold for each pair of nucleotides (the value of *Direction* is constant)
+- The distance between the start and end dinucleotide centers.
+- Noting
+    - $p_i$ the position of the center of the ith dinucleotide
+    - $n$ the number of nucleotides in the sequence
+    - $v_{end} = p_{n - 1} - p_{n - 2}$$
+    - $v_{middle} = p_0 - p_{n - 1}$$
+    - $v_{begin} = p_1 - p_0$
 
-    La similarité cosinus entre les vecteurs $v_{fin}$ et $v_{milieu}$, et $v_{milieu}$ et $v_{debut}$
+    The cosine similarity between the vectors $v_{end}$ and $v_{middle}$, and $v_{middle}$ and $v_{begin}$.
 
-## Configuration des algorithmes
-Les valeurs internes utilisées pour l'algorithme peuvent être modifiés dans le fichier `3dna/__main__.py`.
-- Algorithme de recuit simulé
-```python
+## Algorithm configuration
+The internal values used for the algorithm can be modified in the `3dna/__main__.py` file.
+- Simulated annealing algorithm
+``` python
 recuit = Recuit(
     seq=seq,
     k_max=1000,
@@ -106,15 +106,15 @@ recuit = Recuit(
 
 |argument|type|description|
 |-|-|-|
-|seq|str|La séquence de nucléotides|
-|k_max|int|Le nombre d'itération maximale|
-|e_min|float|Le seuil d'énergie|
-|temp_init|float|La température initiale|
-|refroidissement|float|Le coefficient de refroidissement|
-|dist_min|float|Le seuil de distance|
-|Relier|int|Le nombre de nucléotides reliés entre la fin et le début de la séquence|
+|seq|str|The nucleotide sequence|
+|k_max|int|Maximum number of iterations|
+|e_min|float|Energy threshold|
+|temp_init|float|Initial temperature|
+|refroidissement|float|cooling coefficient|
+|dist_min|float|The distance threshold|
+|Relier|int|The number of nucleotides linked between the end and the beginning of the sequence|
 
-- Algorithme génétique
+- Genetic algorithm
 ```python
 genetique = Genetique(
     seq=seq,
@@ -129,34 +129,34 @@ genetique = Genetique(
 
 |argument|type|description|
 |-|-|-|
-|seq|str|La séquence de nucléotides|
-|methode_utilisee|str|Le nom de la stratégie de sélection|
-|nbr_generation_max|int|Le nombre de génération maximal|
-|N|int|La taille de la population|
-|probabilite_mutation_initiale|float|La probabilité de mutation initiale|
-|probabilite_mutation_finale|float|La probabilité de mutation finale|
-|Relier|int|Le nombre de nucléotides reliés entre la fin et le début de la séquence|
+|seq|str|The nucleotide sequence|
+|methode_utilisee|str|The name of the selection strategy|
+|nbr_generation_max|int|Maximum number of generations|
+|N|int|Population size|
+|probabilite_mutation_initiale|float|The probability of initial mutation|
+|probabilite_mutation_finale|float|The probability of final mutation|
+|Relier|int|The number of nucleotides linked between the end and the beginning of the sequence|
 
-*Note : La probabilité de mutation évolue de manière linéaire entre la valeur initiale et la valeur finale*
+*Note: The mutation probability evolves linearly from the initial value to the final value*.
 
 ## Test
 
-Un test a été implémenté grâce à la librairie `pytest`.
+A test has been implemented using the `pytest` library.
 
-Il peut être exécuté avec
+It can be run with
 
 ```
 cd 3dna
 pytest
 ```
-Un rapport de couverture sous format `html` peut être généré avec
+A coverage report in `html` format can be generated with
 ```
 python -m pytest --cov=. --cov-report html
 ```
 
-## Statistiques
+## Statistics
 
-Les algorithmes peuvent être testés avec plusieurs centaines d'itérations afin d'obtenir une distribution de la distance entre le centre du premier et du dernier dinucléotide, et du minimum de la similarité cosinus.
+The algorithms can be tested with several hundred iterations to obtain a distribution of the distance between the center of the first and last dinucleotide, and of the minimum cosine similarity.
 
 ```bash
 python 3dna/stat.py
